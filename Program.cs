@@ -18,7 +18,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Aktivera CORS
+
 app.UseCors();
 
 // Aktivera static files (för att servera katbilder från wwwroot-mappen)
