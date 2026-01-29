@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -14,9 +13,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-
 var app = builder.Build();
-
 
 app.UseCors();
 app.UseDefaultFiles();

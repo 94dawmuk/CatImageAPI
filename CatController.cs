@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 
 [ApiController]
 [Route("api/v1/cats")]
@@ -13,10 +14,18 @@ public class CatController : ControllerBase
     };
 
     private readonly ILogger<CatController> _logger;
-
+    private readonly string[] _availableCatImages;
     public CatController(ILogger<CatController> logger)
     {
         _logger = logger;
+        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "cats");
+        _availableCatImages = Directory.GetFiles(basePath, "*.png")
+        .Select(f => "/cats/" + Path.GetFileName(f))
+        .ToArray();
+        if (_availableCatImages.Length == 0)
+        {
+            _logger.LogWarning("Inga kattbilder hittades i wwwroot/cats");
+        }
     }
 
     [HttpGet("random")]
@@ -43,5 +52,10 @@ public class CatController : ControllerBase
             _logger.LogError(ex, "Error getting random cat image");
             return StatusCode(500, new { error = "Något gick fel vid hämtning av kattbild", details = ex.Message });
         }
+    }
+    [HttpGet("all")]
+    public IActionResult GetAllCats()
+    {
+        return Ok(_availableCatImages);
     }
 }
