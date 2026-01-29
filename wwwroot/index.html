@@ -1,17 +1,60 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Få till söta kattbilder via vår enkla API eller direktlänkar">
+        <meta name="keywords" content="katt, katter, bulder, cat, cats, image, API">
         <title>Cat Image API</title>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                max-width: 880px;
+                margin:0 auto;
+                padding:20px;
+                line-height: 1.6;
+            }
+            h1{
+                color: #333;
+            }
+            a {
+                color: #0066cc;
+                text-decoration: none;
+            }
+            a:hover{
+                text-decoration: underline;
+            }
+        </style>
 
     </head>
     <body>
         <h1>Välkommen till CatImageAPI!</h1>
+        <button id="randomCatBtn">Visa alumpas</button>
+        <img id="catImage" src="" alt="kattbild" style="max-width: 500px; margin-top: 29px;">
+        <script>
+            document.getElementById('randomCatBtn').addEventListener('click', async ()=>{
+                try{
+                response=await fetch('/api/v1/cats/random');
+                const data=await response.json();
+                document.getElementById("catImage").src=data.imageUrl;
+            }catch(error){
+                console.error('Fel vid hämtning av kattbilder:', error);
+                alert('Kunde inte hämta en kattbild.Försök igen senare.');
+            }
+        });
+    
+        </script>
         <p>Här är några länkar till kattbilder:</p>
         <ul>
             <li><a href="/cats/cat1.png">kattbilder1</a></li>
             <li><a href="/cats/cat2.png">kattbilder2</a></li>
             <li><a href="/cats/cat3.png">kattbilder3</a></li>
         </ul>
-        <p>Testa även <a href="/api/v1/cats/random">>/api/v1/cats/random</a> för att få en slumpmässig kattbild.</p>
+                <p>Testa även <a href="/api/v1/cats/random">/api/v1/cats/random</a> för att få en slumpmässig kattbild.</p>
+                <footer class="mt-5 text-muted text-center">
+            <p>© 2023 Cat Image API. Alla kattbilder är licensierade under <a href="#">Creative Commons</a>.</p>
+        </footer>
+                </footer>
     </body>
 </html>
