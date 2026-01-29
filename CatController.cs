@@ -1,7 +1,7 @@
-using System.Reflection.Metadata.Ecma335;
+
 using Microsoft.AspNetCore.Mvc;
 
-[ApiControllerAttribute]
+[ApiController]
 [Route("api/v1/cats")]
 public class CatController : ControllerBase
 {
@@ -10,12 +10,11 @@ public class CatController : ControllerBase
     {
         var response = new
         {
-            url = "https://cdn.omlet.com/images/originals/breed_abyssinian_cat.jpg",
+            url = "https://cataas.com/cat",
             width = 300,
             height = 200,
             message = "Här är en fin katt!"
         };
         return Ok(response);
-        
     }
 }
